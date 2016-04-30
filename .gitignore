@@ -218,5 +218,5 @@ pip-log.txt
 
 #####
 
-node_modules
-mongo
+nodetest1/node_modules/*
+nodetest1/mongo
