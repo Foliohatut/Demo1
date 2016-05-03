@@ -1,9 +1,11 @@
+// käytetään pohjana layout.jade:a
 extends layout
 
 block content
   h1.
     User List
   ul
+  // käydään läpi userlist ja tulostetaan sivulle sähköpostilinkit jokaiselle käyttäjälle
     each user, i in userlist
       li
         a(href="mailto:#{user.email}")= user.username

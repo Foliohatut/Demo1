@@ -1,59 +1,60 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+/* GET: aloitus sivu. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-/* GET Hello World page */
+/* GET: Hello World sivu */
 router.get('/helloworld', function(req, res, next) {
   res.render('helloworld', { title: 'Hello World!' });
 });
 
-/*GET Userlist page. */
+/*GET: Userlist sivu. */
 router.get('/userlist', function(req, res) {
-	var db = req.db;
-	var collection = db.get('usercollection');
-	collection.find({},{},function(e,docs){
-		res.render('userlist', {
-			"userlist" : docs
-		});
-	});
+    var db = req.db;
+    var collection = db.get('usercollection');
+    collection.find({},{},function(e,docs){
+        res.render('userlist', {
+            "userlist" : docs
+        });
+    });
 });
 
-/*GET New User page */
+/*GET: New User sivu */
 router.get('/newuser', function(req, res) {
-	res.render('newuser', { title: 'Add new user' });
+    res.render('newuser', { title: 'Add new user' });
 });
 
-/* POST to Add User Service */
+/* POST: Uuden käyttäjän lisäys */
 router.post('/adduser',function (req, res){
-	
-	// Set our internal DB variable
-	var db = req.db;
-	
-	//Get our form values. These rely on the "name" attributes
-	var userName = req.body.username;
-	var userEmail = req.body.useremail;
-	
-	//Set our collection
-	var collection = db.get('usercollection');
-	
-	//Submit to the DB
-	collection.insert({
-		"username" : userName,
-		"email" : userEmail
-	}, function (err, doc) {
-		if (err) {
-			//If it failed, return error
-			res.send("There was a problem adding the information to the database");
-		}
-		else {
-			//And forward to success page
-			res.redirect("userlist");
-		}
-	});
+    
+    // Asetetaan sisäinen tietokantamuuttuja
+    var db = req.db;
+    
+    // Otetaan lomakkeesta arvot. Nämä ovat kiinni lomakkeen "name" -attribuuteissa
+    var userName = req.body.username;
+    var userEmail = req.body.useremail;
+    
+    // Asetetaan collection
+    var collection = db.get('usercollection');
+    
+    //Lisätään tietokantaan:
+    collection.insert({
+        "username" : userName,
+        "email" : userEmail
+    }, function (err, doc) {
+        if (err) {
+            // Jos lisäys epäonnistui, palautetaan error
+            res.send("There was a problem adding the information to the data-base");
+        }
+        else {
+            // Onnistumisen jälkeen uudelleenohjataan userlist -sivulle
+            res.redirect("userlist");
+        }
+    });
 });
 
+// Lähetetään eteenpäin router -olio
 module.exports = router;

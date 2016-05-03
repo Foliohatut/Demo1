@@ -1,8 +1,10 @@
+// käytetään pohjana layout.jade:a
 extends layout
 
 block content
     h1= title
+// Luodaan lomake, jossa on tekstikentät nimeä ja sähköpostia varten ja lähetä-nappi
     form#formAddUser(name="adduser",method="post",action="/adduser")
-        input#inputUserName(type="text", placeholder="username", name="username")
-        input#inputUserEmail(type="text", placeholder="useremail", name="useremail")
-        button#btnSubmit(type="submit") submit
+    input#inputUserName(type="text", placeholder="username",  name="username")
+    input#inputUserEmail(type="text",placeholder="useremail",name="useremail")
+    button#btnSubmit(type="submit") submit
